@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <div th:insert="~{bootstrap.html}"></div>
 </head>
 <body>
 <h1>SIGN IN PAGE</h1>
@@ -11,5 +12,6 @@
     <input type="password" placeholder="Insert password:" name="user_password">
     <button class="btn btn-primary">SIGN IN</button>
 </form>
+<a th:href="@{'/sign-up'}">SIGN-UP</a>
 </body>
 </html>

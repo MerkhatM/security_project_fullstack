@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:insert="~{bootstrap.html}"></div>
+</head>
+<body>
+<h1>SIGN UP PAGE</h1>
+<div th:if="${param.emailError!=null}" class="alert alert-danger" role="alert">
+    EMAIL IS BUSY!
+</div>
+
+<div th:if="${param.passwordError!=null}" class="alert alert-warning" role="alert">
+    PASSWORDS ARE NOT SAME!
+</div>
+<form th:action="@{'/sign-up'}" method="post">
+    <input type="email" placeholder="Insert email:" name="email">
+    <input type="password" placeholder="Insert password:" name="password">
+    <input type="password" placeholder="Retype password:" name="rePassword">
+    <input type="text" placeholder="Insert fullname:" name="fullname">
+    <button class="btn btn-primary">SIGN UP</button>
+</form>
+
+</body>
+</html>
