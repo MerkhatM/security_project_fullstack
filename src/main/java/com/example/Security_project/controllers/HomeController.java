@@ -20,6 +20,21 @@ public class HomeController {
         return "home";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/profile")
+    public String profilePage(){
+        return "profile";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/changePassword")
+    public String changePassword(@RequestParam String currentPassword,
+                              @RequestParam String newPassword,
+                              @RequestParam String reNewPassword){
+        String result=userService.changePassword(currentPassword, newPassword, reNewPassword);
+        return "redirect:/"+result;
+    }
+
     @PreAuthorize("isAnonymous()")
     @GetMapping("/sign-in")
     public String signInPage(){

@@ -7,6 +7,9 @@ import com.example.Security_project.models.User;
 import com.example.Security_project.repositories.RoleRepository;
 import com.example.Security_project.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -46,6 +49,23 @@ public class UserService implements UserDetailsService {
         newUser.setRoles(List.of(role));
         userRepository.save(newUser);
         return "sign-in?success";
+    }
 
+    public User getCurrentUser(){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        if(authentication instanceof AnonymousAuthenticationToken)
+            return null;
+        return (User) authentication.getPrincipal();
+    }
+
+    public String changePassword(String currentPassword,String newPassword,String reNewPassword){
+        User user =getCurrentUser();
+        if(!passwordEncoder.matches(currentPassword,user.getPassword())){
+            return "profile?currentPasswordError";
+        }
+        if(!newPassword.equals(reNewPassword)){
+            return "profile?passwordsError";
+        }
+        return "profile?success";
     }
 }

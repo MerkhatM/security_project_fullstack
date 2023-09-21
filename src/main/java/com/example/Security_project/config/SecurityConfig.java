@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .usernameParameter("user_email")
                 .passwordParameter("user_password")
                 .loginPage("/sign-in")
-                .defaultSuccessUrl("/",true)
+                .defaultSuccessUrl("/profile",true)
                 .failureUrl("/sign-in?error"));
         http.logout(logout-> logout.logoutUrl("/logout")
                 .logoutSuccessUrl("/sign-in"));

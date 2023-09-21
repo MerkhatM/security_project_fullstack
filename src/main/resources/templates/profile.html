@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:insert="~{bootstrap.html}"></div>
+</head>
+<body>
+<h1 th:text="${#authentication.getPrincipal().fullname}+' Profile Page'"></h1>
+<div th:if="${param.currentPasswordError!=null}" class="alert alert-danger" role="alert">
+    INCORRECT CURRENT PASSWORD!
+</div>
+
+<div th:if="${param.passwordsError!=null}" class="alert alert-warning" role="alert">
+    PASSWORDS ARE NOT SAME!
+</div>
+<div th:if="${param.success!=null}" class="alert alert-success" role="alert">
+    YOU CHANGED PASSWORD!
+</div>
+<form th:action="@{'/changePassword'}" method="post">
+    <input type="password" placeholder="Insert current password:" name="currentPassword">
+    <input type="password" placeholder="Insert new password:" name="newPassword">
+    <input type="password" placeholder="Retype new password:" name="reNewPassword">
+    <button class="btn btn-primary">CHANGE PASSWORD</button>
+</form>
+<a th:href="${'/logout'}" class="btn btn-info">LOGOUT</a>
+</body>
+</html>
